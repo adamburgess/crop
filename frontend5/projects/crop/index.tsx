@@ -11,3 +11,5 @@ function App() {
 if (root) {
     render(<App />, root);
 }
+
+export default () => console.log('what??');
