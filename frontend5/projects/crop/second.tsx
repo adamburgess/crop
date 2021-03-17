@@ -1,4 +1,5 @@
 import what from './index'
+import './other.css'
 
 console.log('foo!', what());
 
