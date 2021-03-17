@@ -1,6 +1,5 @@
 import { h, render } from 'preact';
 import 'preact/devtools';
-import 'tailwindcss/tailwind.css'
 import './global.css'
 import styles from './index.module.css'
 
