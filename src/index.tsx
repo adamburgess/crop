@@ -1,13 +1,13 @@
 import { h, render } from 'preact';
 import 'preact/devtools';
 import './global.css'
-import styles from './index.module.css'
-
 
 const root = document.getElementById('root')
 
 function App() {
-    return <div><span class={styles.foo}>Crop</span> - Hi!</div>
+    return <div class='bg-'>
+        asdasd
+    </div>
 }
 
 if (root) {
