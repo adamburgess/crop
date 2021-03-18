@@ -106,10 +106,10 @@ function DisplayImage(props: DisplayImageProps) {
     const bounding = useMemo(() => {
         if (end === undefined) return defaultBounding;
 
-        let top = clamp(Math.min(start.y, end.y), 0, props.height);
-        let bottom = clamp(Math.max(start.y, end.y), 0, props.height);
-        let left = clamp(Math.min(start.x, end.x), 0, props.width);
-        let right = clamp(Math.max(start.x, end.x), 0, props.width);
+        const top = clamp(Math.min(start.y, end.y), 0, props.height);
+        const bottom = clamp(Math.max(start.y, end.y), 0, props.height);
+        const left = clamp(Math.min(start.x, end.x), 0, props.width);
+        const right = clamp(Math.max(start.x, end.x), 0, props.width);
 
         const b = {
             width: right - left,
