@@ -75,7 +75,7 @@ function clamp(val: number, min: number, max: number) {
 }
 
 const defaultBounding = {
-    width: 0, height: 0, top: 0, left: 0
+    width: 0, height: 0, top: 0, left: 0, display: 'none'
 };
 
 function DisplayImage(props: DisplayImageProps) {
@@ -85,6 +85,10 @@ function DisplayImage(props: DisplayImageProps) {
 
     const [start, setStart] = useState<Point>({ x: 0, y: 0 });
     const [end, setEnd] = useState<Point | undefined>(undefined);
+
+    useEffect(() => {
+        setEnd(undefined);
+    }, [props.fileUrl]);
 
     const mouseDown = (e: MouseEvent) => {
         setIsDown(true);
@@ -163,5 +167,3 @@ function DisplayImage(props: DisplayImageProps) {
 if (root) {
     render(<App />, root);
 }
-
-export default () => console.log('what??');
