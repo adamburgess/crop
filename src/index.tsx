@@ -29,6 +29,7 @@ function App() {
                     });
                     bitmap.close();
                 } catch (e) {
+                    console.log('error creating bitmap from file', e);
                     setImageMeta({
                         height: 0,
                         width: 0
@@ -39,11 +40,22 @@ function App() {
         }
     }, [file]);
 
+    useEffect(() => {
+        function pasteEvent(this: Document, e: ClipboardEvent) {
+            e.preventDefault();
+            const f = e.clipboardData?.files?.[0];
+            if (f) setFile(f);
+        }
+        document.addEventListener('paste', pasteEvent);
+        return () => {
+            document.removeEventListener('paste', pasteEvent);
+        }
+    }, []);
+
     const fileUrl = useMemo(() => {
         if (file && imageMeta.width !== 0) {
             return URL.createObjectURL(file);
         }
-        return 'https://avatars.githubusercontent.com/u/7473960?s=1024&u=adc3e3a26ed9af966e892a4a92e337e2242a59f0&v=4';
     }, [file, imageMeta]);
 
     return <div
@@ -53,7 +65,12 @@ function App() {
     >
         {fileUrl ?
             <DisplayImage fileUrl={fileUrl} width={imageMeta.width} height={imageMeta.height} /> :
-            <>Drop your image here, alright?</>}
+            <div class="m-2">
+                Drop or paste your image here, alright?<br />
+                This site helps with ffmpeg's "crop" filter. <br />
+                Once an image is placed, draw a box. The filter will be copied to your clipboard.
+            </div>
+        }
     </div>
 }
 
