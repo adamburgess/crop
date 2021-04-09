@@ -1,7 +1,7 @@
 import { h, render, Fragment } from 'preact';
 import 'preact/devtools';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import './global.css'
+import '../tailwind.css'
 
 function App() {
     const [file, setFile] = useState<File | undefined>(undefined);
