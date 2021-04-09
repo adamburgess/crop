@@ -3,8 +3,6 @@ import 'preact/devtools';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import './global.css'
 
-const root = document.getElementById('root')
-
 function App() {
     const [file, setFile] = useState<File | undefined>(undefined);
     const handleDrop = (e: DragEvent) => {
@@ -181,6 +179,4 @@ function DisplayImage(props: DisplayImageProps) {
     </div>;
 }
 
-if (root) {
-    render(<App />, root);
-}
+render(<App />, document.body);
