@@ -1,6 +1,5 @@
-import { h, render, Fragment } from 'preact';
-import 'preact/devtools';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { h, render } from 'preact';
+import { useCallback, useEffect, useMemo, useState } from 'preact/hooks';
 import '../tailwind-base.css'
 import '../tailwind.css'
 
