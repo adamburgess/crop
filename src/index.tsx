@@ -154,7 +154,7 @@ function DisplayImage(props: DisplayImageProps) {
         if (isSet) {
             console.log('set - effect');
             // convert 
-            void navigator.clipboard.writeText(`crop=${bounding.width}:${bounding.height}:${bounding.top}:${bounding.left}`);
+            void navigator.clipboard.writeText(`crop=${bounding.width}:${bounding.height}:${bounding.left}:${bounding.top}`);
         }
     }, [isSet]);
 
@@ -173,7 +173,7 @@ function DisplayImage(props: DisplayImageProps) {
         </div>
         <div class={defaultBoxClass + (isSet ? setBoxClass : normalBoxClass)} style={bounding}>
             <div class="text-center font-mono text-xs">
-                {bounding.width}:{bounding.height}:{bounding.top}:{bounding.left}
+                {bounding.width}:{bounding.height}:{bounding.left}:{bounding.top}
             </div>
         </div>
     </div>;
