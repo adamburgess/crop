@@ -1,0 +1,20 @@
+{
+    "extends": [
+        "config:base",
+        ":disableDependencyDashboard",
+        "schedule:monthly"
+    ],
+    "rangeStrategy": "bump",
+    "packageRules": [
+        {
+            "packageNames": ["node"],
+            "enabled": false
+        },
+        {
+            "matchPackagePatterns": ["*"],
+            "groupName": "all dependencies",
+            "separateMajorMinor": false
+        }
+    ],
+    "prHourlyLimit": 999
+}
