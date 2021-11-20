@@ -15,8 +15,6 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
-      - name: test ssh
-        run: ssh -v -v -v -p 402 root@arm.adam.id.au 'echo hi'
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
