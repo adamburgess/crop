@@ -1,0 +1,27 @@
+name: deploy
+on: workflow_dispatch
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('./package.json', './pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-node${{ matrix.node }}-
+      - name: install dependencies
+        run: npm install -g pnpm && pnpm install
+      - name: restore ssh keys
+        run: |
+          echo $SSH_KEY > ~/.ssh/id_ed25519
+          echo $KNOWN_HOSTS > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/*
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+      - name: deploy
+        run: ./deploy
