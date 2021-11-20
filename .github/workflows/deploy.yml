@@ -4,17 +4,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('./package.json', './pnpm-lock.yaml') }}
-          restore-keys: ${{ runner.os }}-node${{ matrix.node }}-
-      - name: install dependencies
-        run: npm install -g pnpm && pnpm install
       - name: restore ssh keys
         run: |
           mkdir -p ~/.ssh && \
@@ -26,5 +15,18 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+      - name: test ssh
+        run: ssh -v -v -v -p 402 root@arm.adam.id.au 'echo hi'
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('./package.json', './pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-node${{ matrix.node }}-
+      - name: install dependencies
+        run: npm install -g pnpm && pnpm install
       - name: deploy
         run: ./deploy
