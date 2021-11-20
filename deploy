@@ -1,8 +1,8 @@
 #!/bin/bash
 
-which nr || alias nr="npm run"
+set -e
 
-CI=true nr build
+CI=true npm run build
 
 shopt -s globstar
 shopt -s nullglob
