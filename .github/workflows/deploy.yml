@@ -21,7 +21,8 @@ jobs:
           echo $SSH_KEY > ~/.ssh/id_ed25519 && \
           echo $KNOWN_HOSTS > ~/.ssh/known_hosts && \
           chmod 700 ~/.ssh && \
-          chmod 600 ~/.ssh/*
+          chmod 600 ~/.ssh/* && \
+          sha1sum ~/.ssh/known_hosts ~/.ssh/id_ed25519
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
