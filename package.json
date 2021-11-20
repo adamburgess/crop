@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "devDependencies": {
+    "@preact/preset-vite": "^2.1.5",
+    "postcss": "^8.3.11",
+    "vite": "^2.6.14"
+  },
+  "dependencies": {
+    "preact": "^10.5.15",
+    "tailwindcss": "^2.2.19"
+  },
+  "scripts": {
+    "start": "vite",
+    "build": "vite build"
+  }
+}

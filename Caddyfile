@@ -1,0 +1,9 @@
+crop.arm.adam.id.au {
+    root * /w/crop
+    
+    import file-server-defaults
+    import ssl-cloudflare-dns
+    import strict-transport-security
+    import static-long-expiry
+    import cors
+}

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+which nr || alias nr="npm run"
+
+CI=true nr build
+
+shopt -s globstar
+shopt -s nullglob
+
+brotli dist/**/*.{html,css,js,ico}
+
+rsync -rlptDv -e 'ssh -p 402' --usermap=$(whoami):root --delete dist/ root@arm.adam.id.au:/w/crop
+rsync -rlptDv -e 'ssh -p 402' --usermap=$(whoami):root --delete Caddyfile root@arm.adam.id.au:/w/caddy/crop.Caddyfile
+ssh -p 402 root@arm.adam.id.au 'caddy reload --config /Caddyfile'
