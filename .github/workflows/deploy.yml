@@ -8,7 +8,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh && \
           echo "$SSH_KEY" > ~/.ssh/id_ed25519 && \
-          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts && \
+          ssh-keyscan -p 402 -H arm.adam.id.au > ~/.ssh/known_hosts && \
           chmod 700 ~/.ssh && \
           chmod 600 ~/.ssh/* && \
           sha1sum ~/.ssh/known_hosts ~/.ssh/id_ed25519
