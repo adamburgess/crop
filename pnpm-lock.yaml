@@ -2,18 +2,18 @@ lockfileVersion: 5.3
 
 specifiers:
   '@preact/preset-vite': ^2.1.5
-  postcss: ^8.3.11
-  preact: 10.5.15
+  postcss: ^8.4.4
+  preact: 10.6.2
   tailwindcss: ^2.2.19
   vite: ^2.6.14
 
 dependencies:
-  preact: 10.5.15
-  tailwindcss: 2.2.19_postcss@8.3.11
+  preact: 10.6.2
+  tailwindcss: 2.2.19_postcss@8.4.4
 
 devDependencies:
-  '@preact/preset-vite': 2.1.5_preact@10.5.15+vite@2.6.14
-  postcss: 8.3.11
+  '@preact/preset-vite': 2.1.5_preact@10.6.2+vite@2.6.14
+  postcss: 8.4.4
   vite: 2.6.14
 
 packages:
@@ -283,14 +283,14 @@ packages:
       fastq: 1.13.0
     dev: false
 
-  /@preact/preset-vite/2.1.5_preact@10.5.15+vite@2.6.14:
+  /@preact/preset-vite/2.1.5_preact@10.6.2+vite@2.6.14:
     resolution: {integrity: sha512-G+Op0d940lVwOH93Tkhz4BTgE88VpQBFWHqnz8QjHpo6IwmfP3HHQJHrp9dEt5Di2f2HQ4bpmhDqBl7+bzir6g==}
     peerDependencies:
       '@babel/core': 7.x
       vite: 2.x
     dependencies:
       '@babel/plugin-transform-react-jsx': 7.16.0
-      '@prefresh/vite': 2.2.4_preact@10.5.15+vite@2.6.14
+      '@prefresh/vite': 2.2.4_preact@10.6.2+vite@2.6.14
       babel-plugin-transform-hook-names: 1.0.2
       debug: 4.3.2
       kolorist: 1.5.0
@@ -305,19 +305,19 @@ packages:
     resolution: {integrity: sha512-gj3ekiYtHlZNz0zFI1z6a9mcYX80Qacw84+2++7V1skvO7kQoV2ux56r8bJkTBbKMVxwAgaYrxxIdUCYlclE7Q==}
     dev: true
 
-  /@prefresh/core/1.3.2_preact@10.5.15:
+  /@prefresh/core/1.3.2_preact@10.6.2:
     resolution: {integrity: sha512-Iv+uI698KDgWsrKpLvOgN3hmAMyvhVgn09mcnhZ98BUNdg/qrxE7tcUf5yFCImkgqED5/Dcn8G5hFy4IikEDvg==}
     peerDependencies:
       preact: ^10.0.0
     dependencies:
-      preact: 10.5.15
+      preact: 10.6.2
     dev: true
 
   /@prefresh/utils/1.1.1:
     resolution: {integrity: sha512-MUhT5m2XNN5NsZl4GnpuvlzLo6VSTa/+wBfBd3fiWUvHGhv0GF9hnA1pd//v0uJaKwUnVRQ1hYElxCV7DtYsCQ==}
     dev: true
 
-  /@prefresh/vite/2.2.4_preact@10.5.15+vite@2.6.14:
+  /@prefresh/vite/2.2.4_preact@10.6.2+vite@2.6.14:
     resolution: {integrity: sha512-rBBb3tagdigz2ukSc5Rtg8PrbmdvEtJhE37FJRQdHISMcVdN1OkL4003eH2DEOA1231ydbGiKqpaKZisI+zSEg==}
     peerDependencies:
       preact: ^10.4.0
@@ -325,10 +325,10 @@ packages:
     dependencies:
       '@babel/core': 7.16.0
       '@prefresh/babel-plugin': 0.4.1
-      '@prefresh/core': 1.3.2_preact@10.5.15
+      '@prefresh/core': 1.3.2_preact@10.6.2
       '@prefresh/utils': 1.1.1
       '@rollup/pluginutils': 4.1.1
-      preact: 10.5.15
+      preact: 10.6.2
       vite: 2.6.14
     transitivePeerDependencies:
       - supports-color
@@ -1124,7 +1124,7 @@ packages:
     engines: {node: '>=10.0'}
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.3.11
+      postcss: 8.4.4
     dev: false
 
   /postcss-load-config/3.1.0:
@@ -1141,13 +1141,13 @@ packages:
       yaml: 1.10.2
     dev: false
 
-  /postcss-nested/5.0.6_postcss@8.3.11:
+  /postcss-nested/5.0.6_postcss@8.4.4:
     resolution: {integrity: sha512-rKqm2Fk0KbA8Vt3AdGN0FB9OBOMDVajMG6ZCf/GoHgdxUJ4sBFp0A/uMIRm+MJUdo33YXEtjqIz8u7DAp8B7DA==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.3.11
+      postcss: 8.4.4
       postcss-selector-parser: 6.0.6
     dev: false
 
@@ -1167,16 +1167,16 @@ packages:
     resolution: {integrity: sha512-97DXOFbQJhk71ne5/Mt6cOu6yxsSfM0QGQyl0L25Gca4yGWEGJaig7l7gbCX623VqTBNGLRLaVUCnNkcedlRSQ==}
     dev: false
 
-  /postcss/8.3.11:
-    resolution: {integrity: sha512-hCmlUAIlUiav8Xdqw3Io4LcpA1DOt7h3LSTAC4G6JGHFFaWzI6qvFt9oilvl8BmkbBRX1IhM90ZAmpk68zccQA==}
+  /postcss/8.4.4:
+    resolution: {integrity: sha512-joU6fBsN6EIer28Lj6GDFoC/5yOZzLCfn0zHAn/MYXI7aPt4m4hK5KC5ovEZXy+lnCjmYIbQWngvju2ddyEr8Q==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.1.30
       picocolors: 1.0.0
-      source-map-js: 0.6.2
+      source-map-js: 1.0.1
 
-  /preact/10.5.15:
-    resolution: {integrity: sha512-5chK29n6QcJc3m1lVrKQSQ+V7K1Gb8HeQY6FViQ5AxCAEGu3DaHffWNDkC9+miZgsLvbvU9rxbV1qinGHMHzqA==}
+  /preact/10.6.2:
+    resolution: {integrity: sha512-ppDjurt75nSxyikpyali+uKwRl8CK9N6ntOPovGIEGQagjMLVzEgVqFEsUUyUrqyE9Ch90KE0jmFc9q2QcPLBA==}
     dev: false
 
   /pretty-hrtime/1.0.3:
@@ -1190,7 +1190,7 @@ packages:
     dependencies:
       commander: 6.2.1
       glob: 7.2.0
-      postcss: 8.3.11
+      postcss: 8.4.4
       postcss-selector-parser: 6.0.6
     dev: false
 
@@ -1282,8 +1282,8 @@ packages:
       is-arrayish: 0.3.2
     dev: false
 
-  /source-map-js/0.6.2:
-    resolution: {integrity: sha512-/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==}
+  /source-map-js/1.0.1:
+    resolution: {integrity: sha512-4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA==}
     engines: {node: '>=0.10.0'}
 
   /source-map/0.5.7:
@@ -1304,7 +1304,7 @@ packages:
       has-flag: 4.0.0
     dev: false
 
-  /tailwindcss/2.2.19_postcss@8.3.11:
+  /tailwindcss/2.2.19_postcss@8.4.4:
     resolution: {integrity: sha512-6Ui7JSVtXadtTUo2NtkBBacobzWiQYVjYW0ZnKaP9S1ZCKQ0w7KVNz+YSDI/j7O7KCMHbOkz94ZMQhbT9pOqjw==}
     engines: {node: '>=12.13.0'}
     hasBin: true
@@ -1333,10 +1333,10 @@ packages:
       node-emoji: 1.11.0
       normalize-path: 3.0.0
       object-hash: 2.2.0
-      postcss: 8.3.11
+      postcss: 8.4.4
       postcss-js: 3.0.3
       postcss-load-config: 3.1.0
-      postcss-nested: 5.0.6_postcss@8.3.11
+      postcss-nested: 5.0.6_postcss@8.4.4
       postcss-selector-parser: 6.0.6
       postcss-value-parser: 4.1.0
       pretty-hrtime: 1.0.3
@@ -1394,7 +1394,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.13.14
-      postcss: 8.3.11
+      postcss: 8.4.4
       resolve: 1.20.0
       rollup: 2.60.0
     optionalDependencies:
