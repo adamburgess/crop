@@ -4,11 +4,6 @@ set -e
 
 CI=true npm run build
 
-shopt -s globstar
-shopt -s nullglob
+curl https://deploy.arm.adam.id.au/client.mjs > /tmp/client.mjs
 
-brotli dist/**/*.{html,css,js,ico}
-
-rsync -rlptDv -e 'ssh -p 402' --usermap=$(whoami):root --delete dist/ root@arm.adam.id.au:/w/crop
-rsync -rlptDv -e 'ssh -p 402' --usermap=$(whoami):root --delete Caddyfile root@arm.adam.id.au:/w/caddy/crop.Caddyfile
-ssh -p 402 root@arm.adam.id.au 'caddy reload --config /Caddyfile'
+DEPLOY_PATH=dist DEPLOY_PROJECT=crop DEPLOY_CADDYFILE=Caddyfile node /tmp/client.mjs

@@ -1,5 +1,5 @@
 crop.arm.adam.id.au {
-    root * /w/crop
+    root * /w/crop/latest
     
     import file-server-defaults
     import ssl-cloudflare-dns

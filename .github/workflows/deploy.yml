@@ -4,21 +4,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: restore ssh keys
-        run: |
-          mkdir -p ~/.ssh && \
-          echo "$SSH_KEY" > ~/.ssh/id_ed25519 && \
-          ssh-keyscan -p 402 -H arm.adam.id.au > ~/.ssh/known_hosts && \
-          chmod 700 ~/.ssh && \
-          chmod 600 ~/.ssh/* && \
-          sha1sum ~/.ssh/known_hosts ~/.ssh/id_ed25519
-        env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 17
       - uses: actions/cache@v2
         with:
           path: node_modules
@@ -28,3 +17,5 @@ jobs:
         run: npm install -g pnpm && pnpm install
       - name: deploy
         run: ./deploy
+        env:
+          DEPLOY_PASS: ${{ secrets.PASSWORD }}
