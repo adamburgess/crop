@@ -1,4 +1,4 @@
-crop.arm.adam.id.au {
+crop.adam.id.au {
     root * /w/crop/latest
     
     import file-server-defaults
