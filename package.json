@@ -1,13 +1,13 @@
 {
   "private": true,
   "devDependencies": {
-    "@preact/preset-vite": "^2.1.5",
-    "postcss": "^8.4.4",
-    "vite": "^2.6.14"
+    "@preact/preset-vite": "^2.1.7",
+    "postcss": "^8.4.5",
+    "vite": "^2.7.10"
   },
   "dependencies": {
-    "preact": "10.6.2",
-    "tailwindcss": "^2.2.19"
+    "preact": "10.6.4",
+    "tailwindcss": "^3.0.8"
   },
   "scripts": {
     "start": "vite",
