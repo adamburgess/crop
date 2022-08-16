@@ -1,5 +1,9 @@
 name: deploy
-on: [push, workflow_dispatch]
+on: 
+  push:
+    branches:
+      - master
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
