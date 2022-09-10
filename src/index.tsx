@@ -56,7 +56,7 @@ function App() {
     }, [file, imageMeta]);
 
     return <div
-        class="text-gray-800 h-full"
+        class="text-neutral-800 h-full"
         onDragOver={e => e.preventDefault()}
         onDrop={handleDrop}
     >
