@@ -9,16 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - uses: actions/cache@v3
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('./package.json', './pnpm-lock.yaml') }}
-          restore-keys: ${{ runner.os }}-node${{ matrix.node }}-
+          cache: 'pnpm'
+      # - uses: actions/cache@v3
+      #   with:
+      #     path: node_modules
+      #     key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('./package.json', './pnpm-lock.yaml') }}
+      #     restore-keys: ${{ runner.os }}-node${{ matrix.node }}-
       - name: install dependencies
-        run: npm install pnpm && node_modules/.bin/pnpm install
+        run: pnpm install
       - name: deploy
         run: ./deploy
         env:
