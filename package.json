@@ -1,5 +1,6 @@
 {
   "private": true,
+  "type": "module",
   "devDependencies": {
     "@preact/preset-vite": "^2.4.0",
     "postcss": "^8.4.16",
