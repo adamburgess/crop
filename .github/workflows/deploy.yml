@@ -15,12 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'pnpm'
-      # - uses: actions/cache@v3
-      #   with:
-      #     path: node_modules
-      #     key: ${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('./package.json', './pnpm-lock.yaml') }}
-      #     restore-keys: ${{ runner.os }}-node${{ matrix.node }}-
+          cache: pnpm
       - name: install dependencies
         run: pnpm install
       - name: deploy
