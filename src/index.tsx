@@ -1,47 +1,47 @@
+import { batch, ReadonlySignal, useComputed, useSignal, useSignalEffect } from '@preact/signals';
 import { h, render } from 'preact';
 import { useCallback, useEffect, useMemo, useState } from 'preact/hooks';
 import './style.css'
 
 function App() {
-    const [file, setFile] = useState<File | undefined>(undefined);
-    const handleDrop = (e: DragEvent) => {
+    const file = useSignal<File | undefined>(undefined);
+    const handleDrop = useCallback((e: DragEvent) => {
         console.log('drop event...');
         e.preventDefault();
 
         const f = e.dataTransfer?.files?.[0];
-        if (f) setFile(f);
-    };
+        if (f) file.value = f;
+    }, []);
 
-    const [imageMeta, setImageMeta] = useState({ height: 460, width: 460 });
+    const loadedFile = useSignal<LoadedImage | undefined>(undefined);
 
-    useEffect(() => {
-        if (file) {
+    useSignalEffect(() => {
+        if (file.value) {
             const loadFile = async function loadFile(f: File) {
                 // try and create the image.
                 try {
                     const bitmap = await createImageBitmap(f);
-                    setImageMeta({
+                    loadedFile.value = {
+                        file: f,
                         height: bitmap.height,
-                        width: bitmap.width
-                    });
+                        width: bitmap.width,
+                        url: URL.createObjectURL(f)
+                    };
                     bitmap.close();
                 } catch (e) {
                     console.log('error creating bitmap from file', e);
-                    setImageMeta({
-                        height: 0,
-                        width: 0
-                    });
+                    loadedFile.value = undefined;
                 }
             }
-            void loadFile(file);
+            void loadFile(file.value);
         }
-    }, [file]);
+    });
 
     useEffect(() => {
         function pasteEvent(this: Document, e: ClipboardEvent) {
             e.preventDefault();
             const f = e.clipboardData?.files?.[0];
-            if (f) setFile(f);
+            if (f) file.value = f;
         }
         document.addEventListener('paste', pasteEvent);
         return () => {
@@ -49,19 +49,13 @@ function App() {
         }
     }, []);
 
-    const fileUrl = useMemo(() => {
-        if (file && imageMeta.width !== 0) {
-            return URL.createObjectURL(file);
-        }
-    }, [file, imageMeta]);
-
     return <div
         class="text-neutral-800 h-full"
         onDragOver={e => e.preventDefault()}
         onDrop={handleDrop}
     >
-        {fileUrl ?
-            <DisplayImage fileUrl={fileUrl} width={imageMeta.width} height={imageMeta.height} /> :
+        {loadedFile.value ?
+            <DisplayImage {...loadedFile.value} /> :
             <div class="m-2">
                 Drop or paste your image here, alright?<br />
                 This site helps with ffmpeg's "crop" filter. <br />
@@ -71,8 +65,9 @@ function App() {
     </div>
 }
 
-interface DisplayImageProps {
-    fileUrl: string
+interface LoadedImage {
+    url: string
+    file: File
     height: number
     width: number
 }
@@ -92,42 +87,49 @@ const defaultBounding = {
     width: 0, height: 0, top: 0, left: 0, display: 'none'
 };
 
-function DisplayImage(props: DisplayImageProps) {
+function DisplayImage(props: LoadedImage) {
     // ok so we got the file. lets try adding some drag/drop
 
-    const [isDown, setIsDown] = useState(false);
+    const isDown = useSignal(false);
 
-    const [start, setStart] = useState<Point>({ x: 0, y: 0 });
-    const [end, setEnd] = useState<Point | undefined>(undefined);
+    const start = useSignal<Point>({ x: 0, y: 0 });
+    const end = useSignal<Point | undefined>(undefined);
 
     useEffect(() => {
-        setEnd(undefined);
-    }, [props.fileUrl]);
+        end.value = undefined;
+    }, [props.url]);
 
-    const mouseDown = (e: MouseEvent) => {
-        setIsDown(true);
-        setStart({ x: e.pageX, y: e.pageY });
-        setEnd(undefined);
+    const mouseDown = useCallback((e: MouseEvent) => {
+        batch(() => {
+            isDown.value = true;
+            start.value = { x: e.pageX, y: e.pageY };
+            end.value = undefined;
+        });
         console.log('down', e.pageX, e.pageY);
-    }
+    }, []);
     const mouseMove = useCallback((e: MouseEvent) => {
-        if (isDown) {
-            setEnd({ x: e.pageX, y: e.pageY });
+        if (isDown.value) {
+            end.value = { x: e.pageX, y: e.pageY };
         }
-    }, [isDown]);
-    const mouseUp = (e: MouseEvent) => {
+    }, []);
+    const mouseUp = useCallback((e: MouseEvent) => {
         console.log('up', e.pageX, e.pageY);
-        setEnd({ x: e.pageX, y: e.pageY });
-        setIsDown(false);
-    };
+        batch(() => {
+            end.value = { x: e.pageX, y: e.pageY };
+            isDown.value = false;
+        });
+    }, []);
 
-    const bounding = useMemo(() => {
-        if (end === undefined) return defaultBounding;
+    const bounding = useComputed(() => {
+        const e = end.value;
+        const s = start.value;
 
-        const top = clamp(Math.min(start.y, end.y), 0, props.height);
-        const bottom = clamp(Math.max(start.y, end.y), 0, props.height);
-        const left = clamp(Math.min(start.x, end.x), 0, props.width);
-        const right = clamp(Math.max(start.x, end.x), 0, props.width);
+        if (e === undefined) return defaultBounding;
+
+        const top = clamp(Math.min(s.y, e.y), 0, props.height);
+        const bottom = clamp(Math.max(s.y, e.y), 0, props.height);
+        const left = clamp(Math.min(s.x, e.x), 0, props.width);
+        const right = clamp(Math.max(s.x, e.x), 0, props.width);
 
         const b = {
             width: right - left,
@@ -143,19 +145,24 @@ function DisplayImage(props: DisplayImageProps) {
         if (b.width === 0 || b.height === 0) return defaultBounding;
 
         return b;
-    }, [start, end]);
+    });
 
-    const isSet = useMemo(() => {
-        return isDown === false && bounding !== defaultBounding;
-    }, [isDown, bounding]);
+    const isSet = useComputed(() => {
+        return isDown.value === false && bounding.value !== defaultBounding;
+    });
 
-    useEffect(() => {
-        if (isSet) {
+    const boundingText = useComputed(() => {
+        const b = bounding.value;
+        return `${b.width}:${b.height}:${b.left}:${b.top}`
+    });
+
+    useSignalEffect(() => {
+        if (isSet.value) {
             console.log('set - effect');
             // convert 
-            void navigator.clipboard.writeText(`crop=${bounding.width}:${bounding.height}:${bounding.left}:${bounding.top}`);
+            void navigator.clipboard.writeText(`crop=${boundingText.value}`);
         }
-    }, [isSet]);
+    });
 
     const defaultBoxClass = 'transition-colors duration-75 absolute flex items-center justify-center select-none pointer-events-none opacity-80 ';
     const normalBoxClass = 'bg-blue-600';
@@ -168,11 +175,11 @@ function DisplayImage(props: DisplayImageProps) {
             onMouseDown={mouseDown}
             onMouseMove={mouseMove}
             onMouseUp={mouseUp}>
-            <img draggable={false} src={props.fileUrl} style={{ imageRendering: 'pixelated' }} />
+            <img draggable={false} src={props.url} style={{ imageRendering: 'pixelated' }} />
         </div>
-        <div class={defaultBoxClass + (isSet ? setBoxClass : normalBoxClass)} style={bounding}>
+        <div class={defaultBoxClass + (isSet.value ? setBoxClass : normalBoxClass)} style={bounding.value}>
             <div class="text-center font-mono text-xs">
-                {bounding.width}:{bounding.height}:{bounding.left}:{bounding.top}
+                {boundingText}
             </div>
         </div>
     </div>;
