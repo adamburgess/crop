@@ -55,7 +55,7 @@ function App() {
         onDrop={handleDrop}
     >
         {loadedFile.value ?
-            <DisplayImage {...loadedFile.value} /> :
+            <DisplayImage key={loadedFile.value.url} {...loadedFile.value} /> :
             <div class="m-2">
                 Drop or paste your image here, alright?<br />
                 This site helps with ffmpeg's "crop" filter. <br />
@@ -94,10 +94,6 @@ function DisplayImage(props: LoadedImage) {
 
     const start = useSignal<Point>({ x: 0, y: 0 });
     const end = useSignal<Point | undefined>(undefined);
-
-    useEffect(() => {
-        end.value = undefined;
-    }, [props.url]);
 
     const mouseDown = useCallback((e: MouseEvent) => {
         batch(() => {
