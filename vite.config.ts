@@ -14,7 +14,7 @@ export default defineConfig({
         minify: CI ? 'esbuild' : false,
         sourcemap: CI ? true : false,
         emptyOutDir: true,
-        polyfillModulePreload: false,
+        modulePreload: { polyfill: false },
         rollupOptions: {
             output: {
                 manualChunks: undefined
