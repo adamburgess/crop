@@ -9,7 +9,7 @@
   "dependencies": {
     "@preact/signals": "^2.0.2",
     "preact": "^10.26.4",
-    "tailwindcss": "^4.0.17"
+    "tailwindcss": "^4.1.1"
   },
   "scripts": {
     "start": "vite",
